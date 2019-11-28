@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>基本的な表の作成</title>
+</head>
+
+<body>
+    <table>
+        <tr>
+            <th>名前</th>
+            <th>年齢</th>
+        </tr>
+        <tr>
+            <td>氏名(漢字)</td>
+            <td>姓<input type="text" name="example1">名<input type="text" name="example1"></td>
+        </tr>
+        <tr>
+            <td>氏名(カタカナ)</td>
+            <td> <input type="text" name="example2"> <input type="text" name="example2"></td>
+        </tr>
+        <tr>
+            <td>生年月日ｘ</td>
+            <td><select name="example2">
+                    <option value="">5つの選択肢を表示</option>
+                    <option value="選択肢2">2019</option>
+                    <option value="選択肢3">2018</option>
+                    <option value="選択肢4">2017</option>
+                    <option value="選択肢5">2016</option>
+                    <option value="選択肢6">2015</option>
+                    <option value="選択肢7">2014</option>
+                </select>
+                <select name="example2">
+                    <option value="">5</option>
+                    <option value="選択肢2">2019</option>
+                    <option value="選択肢3">2018</option>
+                    <option value="選択肢4">2017</option>
+                    <option value="選択肢5">2016</option>
+                    <option value="選択肢6">2015</option>
+                    <option value="選択肢7">2014</option>
+                </select>
+                <select name="example2">
+                    <option value="">5つ</option>
+                    <option value="選択肢2">2019</option>
+                    <option value="選択肢3">2018</option>
+                    <option value="選択肢4">2017</option>
+                    <option value="選択肢5">2016</option>
+                    <option value="選択肢6">2015</option>
+                    <option value="選択肢7">2014</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>性別</td>
+            <td>
+                <form id="logical" style="font-size:small;">
+                    <p style="display:inline-block; width:100px;">
+                        <input type="radio" value="and" name="radiogroup2" checked />男
+                    </p>
+                    <p style="display:inline; ">
+                        <input type="radio" value="or" name="radiogroup2" />女
+                    </p>
+                </form>
+            </td>
+        </tr>
+        <tr>
+            <td>電話番号</td>
+            <td><input type="text" name="example2"></td>
+        </tr>
+        <tr>
+            <td>住所1</td>
+            <td><input type="text" name="example2"><button type="button" name="name" value="value">検索</button></td>
+        </tr>
+        <tr>
+            <td>住所2</td>
+            <td><input type="text" name="example2"></td>
+        </tr>
+        <tr>
+            <td>職業</td>
+            <td>
+                <form id="logical" style="font-size:small;">
+                    <p style="display:inline-block; width:100px;">
+                        <input type="radio" value="and" name="radiogroup2" checked />学生
+                    </p>
+                    <p style="display:inline; ">
+                        <input type="radio" value="or" name="radiogroup2" />その他
+                    </p>
+                </form>
+            </td>
+        </tr>
+        <tr>
+            <td>高校名</td>
+            <td><input type="text" name="example2"></td>
+        </tr>
+
+
+
+
+    </table>
+</body>
+
+</html>
