@@ -28,7 +28,7 @@
                   :error-messages="errorMessages"
                   placeholder="姓"
                   required
-                  width="100px"
+                  width=100px
                 ></v-text-field>
               </v-col>
               <v-col>
@@ -96,14 +96,24 @@
               <v-radio label="その他" value="radio-2"></v-radio>
             </v-radio-group>学年
             <v-select :items="gakunen_items" filled label="選択してください"></v-select>卒業予定年
-            <v-select :items="yotei_items" filled label="選択してください"></v-select>参加希望学科
-            <v-select :items="gakka_items" filled label="選択してください"></v-select>
-            <v-card-actions>
-              <v-col align="center" justify="start">
-                <v-btn x-large color="primary" width="120px">登録</v-btn>
-              </v-col>
-            </v-card-actions>
+            <v-select :items="yotei_items" filled label="選択してください"></v-select>
           </v-card-text>
+          <v-divider class="mt-12"></v-divider>
+          <v-card-actions>
+            <v-btn text>Cancel</v-btn>
+            <v-spacer></v-spacer>
+            <v-slide-x-reverse-transition>
+              <v-tooltip v-if="formHasErrors" left>
+                <template v-slot:activator="{ on }">
+                  <v-btn icon class="my-0" @click="resetForm" v-on="on">
+                    <v-icon>mdi-refresh</v-icon>
+                  </v-btn>
+                </template>
+                <span>Refresh form</span>
+              </v-tooltip>
+            </v-slide-x-reverse-transition>
+            <v-btn color="primary" text @click="submit">Submit</v-btn>
+          </v-card-actions>
         </v-card>
       </v-col>
     </v-row>
@@ -115,21 +125,7 @@ export default {
   name: "Register",
   data: () => ({
     gakunen_items: ["1学年", "2学年", "3学年", "4学年"],
-    yotei_items: ["2020年", "2021年", "2022年", "2023年"],
-    gakka_items: [
-      "医療福祉事務学科",
-      "診療情報管理士学科",
-      "ホテルブライダル学科",
-      "経営アシスト学科",
-      "公務員・公務員速修学科",
-      "保育学科",
-      "情報スペシャリスト学科",
-      "情報システム学科",
-      "ゲームクリエイター・ゲームプログラマー学科",
-      "データマーケター学科",
-      "ネット動画クリエイター学科",
-      "CGデザイン学科"
-    ]
+    yotei_items: ["2020年", "2021年", "2022年", "2023年"]
   })
 };
 </script>

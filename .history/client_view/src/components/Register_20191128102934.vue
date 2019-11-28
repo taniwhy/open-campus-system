@@ -99,7 +99,7 @@
             <v-select :items="yotei_items" filled label="選択してください"></v-select>参加希望学科
             <v-select :items="gakka_items" filled label="選択してください"></v-select>
             <v-card-actions>
-              <v-col align="center" justify="start">
+              <v-col>
                 <v-btn x-large color="primary" width="120px">登録</v-btn>
               </v-col>
             </v-card-actions>
