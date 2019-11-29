@@ -4,7 +4,7 @@
       <v-row>
         <v-col>
           <v-row align="center" justify="end" style="width: 100%;">
-            <v-btn flat to="/" class="ma-2" outlined color="primary">戻る</v-btn>
+            <v-btn x-large flat to="/" class="ma-2" outlined color="light-blue lighten-3" width=120px>戻る</v-btn>
           </v-row>
         </v-col>
       </v-row>
@@ -12,11 +12,8 @@
     <v-container fluid style="height: 60%;">
       <v-row align="center" justify="center" style="height: 100%;">
         <v-col>
-          <v-row >
+          <v-row>
             <v-card width="400px" class="mx-auto mt-5">
-              <v-card-title>
-                <h1 class="display-1">管理者ログイン</h1>
-              </v-card-title>
               <v-card-text>
                 <v-form>
                   <v-text-field prepend-icon="mdi-account-circle" label="ユーザ名" />
@@ -28,7 +25,9 @@
                     @click:append="showPassword = !showPassword"
                   />
                   <v-card-actions>
-                    <v-btn class="info">ログイン</v-btn>
+                    <v-col align="center" justify="start">
+                      <v-btn  x-large class="info" color="light-blue lighten-3">ログイン</v-btn>
+                    </v-col>
                   </v-card-actions>
                 </v-form>
               </v-card-text>

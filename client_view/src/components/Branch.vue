@@ -4,7 +4,7 @@
       <v-row>
         <v-col>
           <v-row align="center" justify="end" style="width: 100%;">
-            <v-btn flat to="/" class="ma-2" outlined color="primary">戻る</v-btn>
+            <v-btn x-large flat to="/" class="ma-2" outlined color="light-blue lighten-3" width=120px>戻る</v-btn>
           </v-row>
         </v-col>
       </v-row>
@@ -21,7 +21,7 @@
             <v-col>
               <v-row align="center" justify="end" style="width: 100%;">
                 <div class="my-2">
-                  <v-btn flat to="/register" x-large color="primary" width=120px>はい</v-btn>
+                  <v-btn class="white--text" flat to="/register" x-large color="light-blue lighten-3" width=120px>はい</v-btn>
                 </div>
               </v-row>
             </v-col>
@@ -29,7 +29,7 @@
             <v-col>
               <v-row align="center" justify="start" style="width: 100%;">
                 <div class="my-2">
-                  <v-btn flat to="/branch" x-large color="primary" width=120px>いいえ</v-btn>
+                  <v-btn class="white--text" flat to="/branch" x-large color="light-blue lighten-3" width=120px>いいえ</v-btn>
                 </div>
               </v-row>
             </v-col>
