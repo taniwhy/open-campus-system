@@ -14,7 +14,8 @@
         <v-col>
           <v-row>
             <v-col>
-              <v-row align="center" justify="center" style="width: 100%;">オープンキャンパスへの参加は初めてですか？</v-row>
+              <v-row align="center" justify="center" style="width: 100%;">
+                <p style="font-size: 30px;color: #606060;">オープンキャンパスへの参加は初めてですか？</p></v-row>
             </v-col>
           </v-row>
           <v-row height="100px">

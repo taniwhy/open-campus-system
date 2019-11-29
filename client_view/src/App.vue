@@ -1,5 +1,12 @@
 <template>
   <v-app>
+    <div>
+      <v-app-bar color="light-blue lighten-3" dense dark>
+
+        <v-toolbar-title>テスト中</v-toolbar-title>
+
+      </v-app-bar>
+    </div>
     <v-content>
       <router-view></router-view>
     </v-content>
@@ -8,13 +15,12 @@
 
 <script>
 export default {
-  name: 'App',
+  name: "App",
 
-  components: {
-  },
+  components: {},
 
   data: () => ({
     //
-  }),
+  })
 };
 </script>
