@@ -1,0 +1,33 @@
+<template>
+  <router-view></router-view>
+</template>
+
+<script>
+export default {
+  name: "Base_form",
+  data() {
+    return {
+      form: {
+        family_name: null,
+        first_name: null,
+        family_name_reading: null,
+        first_name_reding: null,
+        birth_year: null,
+        birth_month: null,
+        birth_day: null,
+        postal_code: null,
+        street_address: null,
+        address: null,
+        job: null,
+        school_year: null
+      }
+    };
+  },
+  mounted: function() {
+    axios
+      .get("http://127.0.0.1:8000/api/subject/")
+      .then(response => this.subject_push(response.data));
+  },
+  ,
+};
+</script>

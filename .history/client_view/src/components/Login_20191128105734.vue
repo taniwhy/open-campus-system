@@ -1,0 +1,49 @@
+<template>
+  <v-app>
+    <v-container fluid>
+      <v-row>
+        <v-col>
+          <v-row align="center" justify="end" style="width: 100%;">
+            <v-btn flat to="/" class="ma-2" outlined color="primary">戻る</v-btn>
+          </v-row>
+        </v-col>
+      </v-row>
+    </v-container>
+    <v-container fluid style="height: 60%;">
+      <v-row align="center" justify="center" style="height: 100%;">
+        <v-col>
+          <v-row>
+            <v-card width="400px" class="mx-auto mt-5">
+              <v-card-text>
+                <v-form>
+                  <v-text-field prepend-icon="mdi-account-circle" label="ユーザ名" />
+                  <v-text-field
+                    v-bind:type="showPassword ?'text' : 'password'"
+                    prepend-icon="mdi-lock"
+                    append-icon="mdi-eye-off"
+                    label="パスワード"
+                    @click:append="showPassword = !showPassword"
+                  />
+                  <v-card-actions>
+                    <v-col align="center" justify="start">
+                      <v-btn  x-large class="info" color="light-blue lighten-3">ログイン</v-btn>
+                    </v-col>
+                  </v-card-actions>
+                </v-form>
+              </v-card-text>
+            </v-card>
+          </v-row>
+        </v-col>
+      </v-row>
+    </v-container>
+  </v-app>
+</template>
+
+<script>
+export default {
+  name: "Login",
+  data: () => ({
+    showPassword: false
+  })
+};
+</script>
