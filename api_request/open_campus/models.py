@@ -23,7 +23,7 @@ class Participant(models.Model):
     first_name = models.CharField(verbose_name="苗字", max_length=50)
     family_name_reading = models.CharField(verbose_name="名前フリガナ", max_length=50)
     first_name_reading = models.CharField(verbose_name="苗字フリガナ", max_length=50)
-    birthday = models.DateField(verbose_name="生年月日", auto_now=False, auto_now_add=False)
+    birthday = models.CharField(verbose_name="生年月日", max_length=20)
     gender = models.BooleanField(verbose_name="性別")
     phone_number = models.CharField(verbose_name="電話番号", max_length=10)
     postal_code = models.CharField(verbose_name="郵便番号", max_length=7)

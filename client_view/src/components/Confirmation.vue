@@ -210,7 +210,7 @@
                     color="cyan"
                     dark
                     width="120px"
-                    v-on:click="$router.back()"
+                    to="/register"
                   >編集する</v-btn>
                 </v-col>
               </v-card-actions>

@@ -30,18 +30,15 @@ const routes = [{
     {
         path: '/confirmation',
         component: Confirmation
-    }]
-},
-{
-    path: '/re_register',
-    component: Base_form,
-    children: [{
-        path: '/',
+    },
+    {
+        path: '/re_register',
         component: ReRegister
     },
     {
         path: '/re_confirmation',
         component: ReConfirmation
+
     }]
 },
 {

@@ -102,8 +102,18 @@
             <v-progress-circular :size="50" color="light-blue lighten-3" indeterminate></v-progress-circular>
           </div>
           <div v-if="form_create">
-            <h2>確認</h2>
-            <v-btn x-large flat to="/" class="ma-2" app color="cyan" dark width="120px">戻る</v-btn>
+            <h2>データが見つかりました</h2>
+            <h2>確認してください</h2>
+            <v-btn
+              x-large
+              flat
+              to="/confirmation"
+              class="ma-2"
+              app
+              color="cyan"
+              dark
+              width="120px"
+            >確認</v-btn>
           </div>
           <div v-if="form_error">
             <h2>登録が成功しませんでした。</h2>
@@ -160,7 +170,6 @@ export default {
     //登録完了処理
     form_post: function() {
       this.form_format();
-      console.log(this.form);
       axios
         .get(
           "http://127.0.0.1:8000/api/participant/",
@@ -175,7 +184,10 @@ export default {
         .catch(response => this.create_error(response));
     },
     form_created: function(response) {
-      console.log(response);
+      console.log(this.data.form);
+      console.log(response.data[0]);
+      this.data.form = response.data[0];
+      console.log(this.data.form);
       this.form_check = false;
       this.form_create = true;
     },
