@@ -1,9 +1,9 @@
 <template>
   <v-app>
     <v-app-bar app color="cyan" dark>
-      <v-toolbar-title>Login Page</v-toolbar-title>
+      <v-toolbar-title>Okayama Information College</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn class="ma-2" to="/" outlined>back</v-btn>
+      <v-btn class="ma-2" to="/" outlined >back</v-btn>
     </v-app-bar>
     <v-content>
       <v-container class="fill-height" fluid>
@@ -33,7 +33,6 @@
                 <v-col align="center">
                   <v-btn
                     x-large
-                    class="white--text"
                     color="cyan"
                     :disabled="!valid"
                     @click="login"

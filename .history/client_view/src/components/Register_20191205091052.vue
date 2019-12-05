@@ -75,45 +75,35 @@
               </v-row>
 
               <!-- 生年月日フォーム -->
-              <v-row style="height: 20px;">
+              <v-row style="height: 35px;">
                 <p style="text-align: left;color: #222222">生年月日</p>
               </v-row>
 
-              <v-row style="height: 50px;">
-                <v-col>
-                  <v-select
-                    style="min-width: 150px"
-                    v-model="data.form.birth_year"
-                    :items="data.years_list"
-                    label="年"
-                    dense
-                    solo
-                  ></v-select>
-                </v-col>
-              </v-row>
-              <v-row style="height: 50px;">
-                <v-col>
-                  <v-select
-                    style="min-width: 150px"
-                    v-model="data.form.birth_month"
-                    :items="data.months_list"
-                    label="月"
-                    dense
-                    solo
-                  ></v-select>
-                </v-col>
-              </v-row>
-              <v-row style="height: 70px;">
-                <v-col>
-                  <v-select
-                    style="min-width: 150px"
-                    v-model="data.form.birth_day"
-                    :items="data.days_list"
-                    label="日"
-                    dense
-                    solo
-                  ></v-select>
-                </v-col>
+              <v-row>
+                <v-select
+                  style="min-width: 150px"
+                  v-model="data.form.birth_year"
+                  :items="data.years_list"
+                  label="年"
+                  dense
+                  solo
+                ></v-select>
+                <v-select
+                  style="min-width: 150px"
+                  v-model="data.form.birth_month"
+                  :items="data.months_list"
+                  label="月"
+                  dense
+                  solo
+                ></v-select>
+                <v-select
+                  style="min-width: 150px"
+                  v-model="data.form.birth_day"
+                  :items="data.days_list"
+                  label="日"
+                  dense
+                  solo
+                ></v-select>
               </v-row>
 
               <!-- 性別フォーム -->
@@ -263,10 +253,9 @@
               </div>
 
               <!-- 参加希望学科フォーム -->
-              <v-row style="height: 10px;">
+              <v-row style="height: 2x;">
                 <p style="text-align: left;color: #222222">参加希望学科</p>
               </v-row>
-              <v-row>
                 <v-col>
                   <v-select
                     :items="data.subject_list"
@@ -276,7 +265,6 @@
                     solo
                   ></v-select>
                 </v-col>
-              </v-row>
 
               <!-- 登録ボタン -->
               <v-card-actions>

@@ -75,11 +75,11 @@
               </v-row>
 
               <!-- 生年月日フォーム -->
-              <v-row style="height: 20px;">
+              <v-row style="height: 35px;">
                 <p style="text-align: left;color: #222222">生年月日</p>
               </v-row>
 
-              <v-row style="height: 50px;">
+              <v-row style="height: 40px;">
                 <v-col>
                   <v-select
                     style="min-width: 150px"
@@ -91,7 +91,7 @@
                   ></v-select>
                 </v-col>
               </v-row>
-              <v-row style="height: 50px;">
+              <v-row style="height: 40px;">
                 <v-col>
                   <v-select
                     style="min-width: 150px"
@@ -103,7 +103,7 @@
                   ></v-select>
                 </v-col>
               </v-row>
-              <v-row style="height: 70px;">
+              <v-row style="height: 40px;">
                 <v-col>
                   <v-select
                     style="min-width: 150px"

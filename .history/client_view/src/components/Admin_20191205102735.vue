@@ -10,12 +10,12 @@
             <v-list-item-title>Dashboard</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-        <v-list-item link to="/">
+        <v-list-item link>
           <v-list-item-action>
             <v-icon>mdi-settings</v-icon>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title>Logout</v-list-item-title>
+            <v-list-item-title>Settings</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list>
@@ -24,6 +24,8 @@
     <v-app-bar app clipped-left>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       <v-toolbar-title>Open campus system Admin</v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-btn class="ma-2" outlined color="indigo">Outlined Button</v-btn>
     </v-app-bar>
 
     <v-content>

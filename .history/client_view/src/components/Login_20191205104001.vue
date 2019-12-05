@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-app-bar app color="cyan" dark>
-      <v-toolbar-title>Login Page</v-toolbar-title>
+      <v-toolbar-title>Login</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn class="ma-2" to="/" outlined>back</v-btn>
     </v-app-bar>

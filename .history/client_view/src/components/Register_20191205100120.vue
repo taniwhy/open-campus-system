@@ -103,7 +103,7 @@
                   ></v-select>
                 </v-col>
               </v-row>
-              <v-row style="height: 70px;">
+              <v-row style="height: 60px;">
                 <v-col>
                   <v-select
                     style="min-width: 150px"

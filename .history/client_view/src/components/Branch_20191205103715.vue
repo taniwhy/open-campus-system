@@ -10,11 +10,11 @@
           </v-row>
           <v-row align="center" justify="center">
             <v-col align="end" cols="5">
-              <v-btn class="white--text" to="/register" x-large color="cyan" width="120px">はい</v-btn>
+              <v-btn class="white--text"  to="/register" x-large color="cyan" width="120px">はい</v-btn>
             </v-col>
             <v-col cols="1"></v-col>
             <v-col align="start" cols="5">
-              <v-btn class="white--text" to="/branch" x-large color="cyan" width="120px">いいえ</v-btn>
+              <v-btn class="white--text" flat to="/branch" x-large color="cyan" width="120px">いいえ</v-btn>
             </v-col>
           </v-row>
         </v-col>

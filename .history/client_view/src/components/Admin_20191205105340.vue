@@ -10,9 +10,11 @@
             <v-list-item-title>Dashboard</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-        <v-list-item link to="/">
+        <v-list-item link>
           <v-list-item-action>
-            <v-icon>mdi-settings</v-icon>
+            <v-btn icon to="/">
+              <v-icon>mdi-settings</v-icon>
+            </v-btn>
           </v-list-item-action>
           <v-list-item-content>
             <v-list-item-title>Logout</v-list-item-title>
