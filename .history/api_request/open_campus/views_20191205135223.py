@@ -11,7 +11,6 @@ class SubjectViewSet(viewsets.ModelViewSet):
     Returns:
         学科一覧データ
     """
-    permission_classes = (IsAuthenticated,)
     queryset = Subject.objects.all()
     serializer_class = SubjectSerializer
 
