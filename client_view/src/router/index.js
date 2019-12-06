@@ -2,55 +2,74 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Branch from '../components/Branch.vue'
 import Register from '../components/Register.vue'
-import ReRegister from '../components/ReRegister.vue'
+import Reregister from '../components/Reregister.vue'
 import Base_form from '../components/Base_form.vue'
 import Confirmation from '../components/Confirmation.vue'
-import ReConfirmation from '../components/ReConfirmation.vue'
+import Reconfirmation from '../components/Reconfirmation.vue'
 import Login from '../components/Login.vue'
 import Admin from '../components/Admin.vue'
 import Base from '../components/Base.vue'
-
+import Allparticipant from '../components/Allparticipant.vue'
+import Participant_confirmation from '../components/Participant_confirmation.vue'
+import Participant_register from '../components/Participant_register.vue'
+import Reception_complate from '../components/Reception_complate.vue'
 Vue.use(VueRouter)
 
 const routes = [{
-    path: '/',
-    component: Base,
-    children: [{
         path: '/',
-        component: Branch
-    }]
-},
-{
-    path: '/register',
-    component: Base_form,
-    children: [{
-        path: '/',
-        component: Register
+        component: Base,
+        children: [{
+            path: '/',
+            component: Branch
+        }]
     },
     {
-        path: '/confirmation',
-        component: Confirmation
+        path: '/register',
+        component: Base_form,
+        children: [{
+                path: '/',
+                component: Register
+            },
+            {
+                path: '/confirmation',
+                component: Confirmation
+            },
+            {
+                path: '/re_register',
+                component: Reregister
+            },
+            {
+                path: '/re_confirmation',
+                component: Reconfirmation
+            },
+            {
+                path: '/participant_confirmation',
+                component: Participant_confirmation
+            },
+            {
+                path: '/participant_register',
+                component: Participant_register
+            },
+            {
+                path: '/Reception_complate',
+                component: Reception_complate
+            }
+        ]
     },
     {
-        path: '/re_register',
-        component: ReRegister
+        path: '/login',
+        name: 'login',
+        component: Login
     },
     {
-        path: '/re_confirmation',
-        component: ReConfirmation
-
-    }]
-},
-{
-    path: '/login',
-    name: 'login',
-    component: Login
-},
-{
-    path: '/admin',
-    name: 'admin',
-    component: Admin
-},
+        path: '/admin',
+        name: 'admin',
+        component: Admin,
+        children: [{
+            path: '/',
+            component: Allparticipant
+        }]
+    },
 ]
 
 const router = new VueRouter({

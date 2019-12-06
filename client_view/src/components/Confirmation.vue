@@ -226,7 +226,7 @@
           </div>
           <div v-if="form_create">
             <h2>登録完了しました!</h2>
-            <v-btn x-large flat to="/" class="ma-2" app color="cyan" dark width="120px">戻る</v-btn>
+            <v-btn x-large flat to="/reception_complate" class="ma-2" app color="cyan" dark width="120px">戻る</v-btn>
           </div>
           <div v-if="form_error">
             <h2>登録が成功しませんでした。</h2>
@@ -296,7 +296,7 @@ export default {
       this.form_format();
       console.log(this.form);
       axios
-        .get("http://127.0.0.1:8000/api/participant/", this.form, {
+        .post("http://127.0.0.1:8000/api/participant/", this.form, {
           auth: { username: settings["name"], password: settings["pass"] }
         })
         .then(response => this.form_created(response))
