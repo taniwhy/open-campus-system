@@ -2,12 +2,22 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
 import routes from '../router/index'
+
 Vue.use(Vuex)
 
 axios.defaults.xsrfCookieName = 'csrftoken'
 axios.defaults.xsrfHeaderName = 'X-CSRFToken'
 
+/**
+ * 全てのページで使用できる全体の状態管理
+ */
 export default new Vuex.Store({
+    /**
+     * idTokn: 認証用のトークン
+     * loggedIn: ログイン状態管理
+     * login_erro: 表示出力判定
+     * loading: 表示出力判定
+     */
     state: {
         idToken: "",
         loggedIn: false,
@@ -43,6 +53,10 @@ export default new Vuex.Store({
         }
     },
     actions: {
+        /**
+         * ログイン処理
+         * @param {Object} auth 認証に使用するIDとPASS
+         */
         login({
             commit
         }, auth) {
@@ -53,16 +67,25 @@ export default new Vuex.Store({
                     username: auth.username,
                     password: auth.password,
                 })
+                /**
+                 * 正常終了処理
+                 */
                 .then(response => {
-                    console.log(response)
                     commit('storeIdToken', response.data)
                     routes.push("/admin")
-                }).catch(error => {
+                })
+                /**
+                 * エラー処理
+                 */
+                .catch(error => {
                     console.log(error.response);
                     commit('loading_off')
                     commit('login_error')
                 });
         },
+        /**
+         * ログアウト処理
+         */
         logout({
             commit
         }) {

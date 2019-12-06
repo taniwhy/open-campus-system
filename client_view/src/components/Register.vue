@@ -121,8 +121,8 @@
                 <p style="text-align: left;color: #222222">性別</p>
               </v-row>
               <v-radio-group row v-model="data.picked">
-                <v-radio id="男" value="false" label="男" @change="data.form.gender=false"></v-radio>
-                <v-radio id="女" value="true" label="女" @change="data.form.gender=true"></v-radio>
+                <v-radio id="gender" value="false" label="男" @change="data.form.gender=false"></v-radio>
+                <v-radio id="gender" value="true" label="女" @change="data.form.gender=true"></v-radio>
               </v-radio-group>
 
               <!-- 電話番号フォーム -->
@@ -199,13 +199,13 @@
               <v-radio-group row v-model="data.picked_job">
                 <v-radio
                   label="学生"
-                  value="yes1"
+                  value="false"
                   @change="data.student_check = true, data.form.job = false"
                 ></v-radio>
                 <v-radio
                   id="onna"
                   label="その他"
-                  value="no1"
+                  value="true"
                   @change="data.student_check = false, data.form.job = true"
                 ></v-radio>
               </v-radio-group>
@@ -307,7 +307,6 @@ import axios from "axios";
 export default {
   data() {
     return {
-      
       is_null: value => value == null || "必ず選択してください",
       required: value => !!value || "必ず入力してください",
       digit_check: value =>
@@ -366,7 +365,7 @@ export default {
         window.scrollTo(0, 0);
       }
       if (this.success) {
-        this.$router.push({ path: "confirmation" });
+        this.$router.push({ path: "register_confirmation" });
       }
     },
     scrollBehavior(to, from, savedPosition) {

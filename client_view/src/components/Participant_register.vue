@@ -121,10 +121,9 @@
                 <p style="text-align: left;color: #222222">性別</p>
               </v-row>
               <v-radio-group row v-model="data.picked">
-                <v-radio id="男" value="false" label="男" @change="data.form.gender=false"></v-radio>
-                <v-radio id="女" value="true" label="女" @change="data.form.gender=true"></v-radio>
+                <v-radio id="gender" value="false" label="男" @change="data.form.gender=false"></v-radio>
+                <v-radio id="gender" value="true" label="女" @change="data.form.gender=true"></v-radio>
               </v-radio-group>
-
               <!-- 電話番号フォーム -->
               <v-row style="height: 0px;">
                 <p style="text-align: left;color: #222222">電話番号</p>
@@ -198,14 +197,15 @@
               </v-row>
               <v-radio-group row v-model="data.picked_job">
                 <v-radio
+                id="職業"
                   label="学生"
-                  value="yes1"
+                  value="false"
                   @change="data.student_check = true, data.form.job = false"
                 ></v-radio>
                 <v-radio
-                  id="onna"
+                  id="職業"
                   label="その他"
-                  value="no1"
+                  value="true"
                   @change="data.student_check = false, data.form.job = true"
                 ></v-radio>
               </v-radio-group>
@@ -288,7 +288,7 @@
                     color="cyan"
                     dark
                     width="120px"
-                    to="participant_confirmation"
+                    v-on:click="submit"
                   >確認</v-btn>
                 </v-col>
               </v-card-actions>
@@ -307,7 +307,6 @@ import axios from "axios";
 export default {
   data() {
     return {
-      
       is_null: value => value == null || "必ず選択してください",
       required: value => !!value || "必ず入力してください",
       digit_check: value =>
@@ -328,6 +327,7 @@ export default {
     data: Object
   },
   mounted: function() {
+    console.log(this.data);
     this.create_birth();
     axios
       .get("http://127.0.0.1:8000/api/subject/")
@@ -336,18 +336,25 @@ export default {
   methods: {
     create_birth: function() {
       for (var y = 2019; y > 1900; y--) {
-        this.data.years_list.push(y);
+        this.data.years_list.push(String(y));
       }
       for (var m = 1; m < 13; m++) {
-        this.data.months_list.push(m);
+        this.data.months_list.push(String(m));
       }
       for (var d = 1; d < 32; d++) {
-        this.data.days_list.push(d);
+        this.data.days_list.push(String(d));
       }
     },
     subject_push: function(response) {
       for (var key in response) {
         this.data.subject_list.push(response[key].subject_name);
+      }
+    },
+    scrollBehavior(to, from, savedPosition) {
+      if (savedPosition) {
+        return savedPosition;
+      } else {
+        return { x: 0, y: 0 };
       }
     },
     submit() {
@@ -366,14 +373,7 @@ export default {
         window.scrollTo(0, 0);
       }
       if (this.success) {
-        this.$router.push({ path: "confirmation" });
-      }
-    },
-    scrollBehavior(to, from, savedPosition) {
-      if (savedPosition) {
-        return savedPosition;
-      } else {
-        return { x: 0, y: 0 };
+        this.$router.push({ path: "Participant_confirmation" });
       }
     },
     form_check() {

@@ -1,38 +1,43 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Branch from '../components/Branch.vue'
+
+import Home from '../views/Home.vue'
+import Login from '../views/Login.vue'
+import Admin from '../views/Admin.vue'
+import Base from '../views/Base.vue'
+import BaseForm from '../views/BaseForm.vue'
+
 import Register from '../components/Register.vue'
+import RegisterConfirmation from '../components/RegisterConfirmation.vue'
 import Reregister from '../components/Reregister.vue'
-import Base_form from '../components/Base_form.vue'
-import Confirmation from '../components/Confirmation.vue'
 import Reconfirmation from '../components/Reconfirmation.vue'
-import Login from '../components/Login.vue'
-import Admin from '../components/Admin.vue'
-import Base from '../components/Base.vue'
-import Allparticipant from '../components/Allparticipant.vue'
-import Participant_confirmation from '../components/Participant_confirmation.vue'
 import Participant_register from '../components/Participant_register.vue'
+import Participant_confirmation from '../components/Participant_confirmation.vue'
+import AllParticipant from '../components/AllParticipant.vue'
 
 Vue.use(VueRouter)
 
+/**
+ * ルーティングに使用するパス
+ */
 const routes = [{
         path: '/',
         component: Base,
         children: [{
             path: '/',
-            component: Branch
+            component: Home
         }]
     },
     {
         path: '/register',
-        component: Base_form,
+        component: BaseForm,
         children: [{
                 path: '/',
                 component: Register
             },
             {
-                path: '/confirmation',
-                component: Confirmation
+                path: '/register_confirmation',
+                component: RegisterConfirmation
             },
             {
                 path: '/re_register',
@@ -64,14 +69,24 @@ const routes = [{
         component: Admin,
         children: [{
             path: '/',
-            component: Allparticipant
+            component: AllParticipant
         }]
     },
 ]
 
+/**
+ * ルーター宣言
+ */
 const router = new VueRouter({
+    /**
+     * パスデータのインポート
+     */
     routes,
-    scrollBehavior(to, from, savedPosition) {
+    /**
+     * 画面遷移時に画面上部に移動する
+     * @param {*} savedPosition 画面一の履歴
+     */
+    scrollBehavior(savedPosition) {
         if (savedPosition) {
             return savedPosition
         } else {

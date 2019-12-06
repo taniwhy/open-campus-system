@@ -198,7 +198,6 @@
                     color="cyan"
                     dark
                     width="120px"
-                    v-on:click="form_post"
                     @click="entry"
                   >OK</v-btn>
                 </v-col>
@@ -264,9 +263,7 @@ export default {
     data: Object
   },
   methods: {
-    entry: function () { 
-
-     },
+    entry: function() {},
     //送信用フォームのフォーマット
     form_format: function() {
       this.birthday =

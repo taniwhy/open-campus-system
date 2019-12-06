@@ -221,14 +221,14 @@
       </v-card>
       <div class="text-center">
         <v-overlay :value="overlay" color="grey darken-4">
-          <div v-if="form_check">
+          <div v-if="loading">
             <v-progress-circular :size="50" color="light-blue lighten-3" indeterminate></v-progress-circular>
           </div>
-          <div v-if="form_create">
+          <div v-if="succeeded_register">
             <h2>登録完了しました!</h2>
-            <v-btn x-large flat to="/" class="ma-2" app color="cyan" dark width="120px">戻る</v-btn>
+            <v-btn x-large flat to="/" class="ma-2" app color="cyan" dark width="120px">OK</v-btn>
           </div>
-          <div v-if="form_error">
+          <div v-if="failed_register">
             <h2>登録が成功しませんでした。</h2>
             <h2>もう一度最初からお願いします。</h2>
             <v-btn x-large flat to="/" class="ma-2" app color="cyan" dark width="120px">戻る</v-btn>
@@ -245,27 +245,56 @@ import axios from "axios";
 import settings from "..//local_settings.json";
 
 export default {
-  data() {
-    return {
-      settings: settings,
-      //送信用フォームのバインディングデータ
-      form: {},
-      //フォーム用生年月日変数
-      birthday: null,
-      overlay: false,
-      overlay2: false,
-      form_check: true,
-      form_create: false,
-      form_error: false
-    };
-  },
-  //バインディングデータ
   props: {
+    /**
+     * バインディングデータ
+     */
     data: Object
   },
+  data() {
+    return {
+      /**
+       * ヘッダーに付与する認証情報
+       * @type {json}
+       */
+      settings: settings,
+      /**
+       * POST送信時に付与するパラメタ
+       * @type {json}
+       */
+      form: {},
+      /**
+       * POST送信時のフォームに付与する生年月日フィールド
+       * @type {String}
+       */
+      birthday: null,
+      /**
+       * POST送信時のローディング用オーバーレイ表示判定
+       * @type {Boolean}
+       */
+      overlay: false,
+      /**
+       * ローディングアニメーション表示判定
+       * @type {Boolean}
+       */
+      loading: true,
+      /**
+       * 登録成功表示判定
+       * @type {Boolean}
+       */
+      succeeded_register: false,
+      /**
+       * 登録失敗表示判定
+       * @type {Boolean}
+       */
+      failed_register: false
+    };
+  },
   methods: {
-    //送信用フォームのフォーマット
-    form_format: function() {
+    /**
+     * POST送信時に付与するパラメタのフォーマット
+     */
+    form_format() {
       this.birthday =
         this.data.form.birth_year +
         "-" +
@@ -291,26 +320,30 @@ export default {
         graduate_qualification: this.data.form.graduate_qualification
       };
     },
-    //登録完了処理
-    form_post: function() {
+    /**
+     * 参加者情報のbhgbbbbbbbbb５６ＭＭＭＭＭPOST送信
+     */
+    form_post() {
       this.form_format();
       console.log(this.form);
       axios
         .post("http://127.0.0.1:8000/api/participant/", this.form, {
           auth: { username: settings["name"], password: settings["pass"] }
         })
-        .then(response => this.form_created(response))
-        .catch(response => this.create_error(response));
+        .then(response => this.succeeded_registerd(response))
+        .catch(error => {
+          this.failed_register(error);
+        });
     },
-    form_created: function(response) {
+    succeeded_registerd(response) {
       console.log(response);
-      this.form_check = false;
-      this.form_create = true;
+      this.loading = false;
+      this.succeeded_register = true;
     },
-    create_error: function(response) {
+    create_error(response) {
       console.log(response);
-      this.form_check = false;
-      this.form_error = true;
+      this.loading = false;
+      this.failed_register = true;
     }
   }
 };

@@ -1,3 +1,4 @@
+<!-- Adminのベース -->
 <template>
   <v-app id="inspire">
     <v-navigation-drawer v-model="drawer" app clipped>
@@ -63,15 +64,20 @@ export default {
   data: () => ({
     drawer: null
   }),
+  /**
+   * 遷移時にログイン状態をチェックし
+   * 未ログインであればログイン画面にリダイレクトする
+   */
   mounted() {
-    console.log(this.$store.getters.loggedIn);
     if (this.$store.getters.loggedIn == false) {
       this.$router.push({ path: "login" });
     }
   },
+  /**
+   * ログアウト処理
+   */
   methods: {
     logout() {
-      console.log(this.$store.getters.loggedIn);
       this.$store.dispatch("logout");
     }
   }

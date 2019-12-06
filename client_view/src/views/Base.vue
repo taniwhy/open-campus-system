@@ -1,3 +1,4 @@
+<!-- ホーム画面のベース -->
 <template>
   <v-app>
     <v-app-bar app color="cyan" dark>
@@ -13,10 +14,6 @@
 
 <script>
 export default {
-  components: {},
-
-  data: () => ({
-    drawer: false
-  })
+  data: () => ({})
 };
 </script>
