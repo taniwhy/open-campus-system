@@ -6,6 +6,8 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   data() {
     return {
@@ -101,5 +103,29 @@ export default {
       }
     };
   },
+  created() {
+    this.create_birth();
+    axios
+      .get("http://127.0.0.1:8000/api/subject/")
+      .then(response => this.subject_push(response.data));
+  },
+  methods: {
+    create_birth: function() {
+      for (var y = 2019; y >= 1900; y--) {
+        this.data.years_list.push(y);
+      }
+      for (var m = 1; m < 13; m++) {
+        this.data.months_list.push(m);
+      }
+      for (var d = 1; d < 32; d++) {
+        this.data.days_list.push(d);
+      }
+    },
+    subject_push: function(response) {
+      for (var key in response) {
+        this.data.subject_list.push(response[key].subject_name);
+      }
+    }
+  }
 };
 </script>

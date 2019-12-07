@@ -1,3 +1,4 @@
+ <!-- 登録済み参加者向け確認コンポーネント -->
 <template>
   <v-app>
     <v-content>
@@ -64,7 +65,7 @@
 
             <v-row align="center" justify="center">
               <div max-width="95%">
-                <p style="font-size: 20px;color: #FF5252; font-weight: 600;">※こちらでよろしいですか？</p>
+                <p style="font-size: 20px;color: #42A5F5; font-weight: 600;">※上記の入力内容でよろしいですか？</p>
               </div>
               <v-card-actions>
                 <v-col>
@@ -87,7 +88,7 @@
                     color="cyan"
                     dark
                     width="120px"
-                    to="/re_register"
+                    to="/entry"
                   >編集する</v-btn>
                 </v-col>
               </v-card-actions>
@@ -102,7 +103,7 @@
             <v-progress-circular :size="50" color="light-blue lighten-3" indeterminate></v-progress-circular>
           </div>
           <div v-if="form_create">
-            <h2>データが見つかりました</h2>
+            <h2>登録情報が見つかりました</h2>
             <h2>確認してください</h2>
             <v-btn
               x-large
@@ -113,11 +114,11 @@
               color="cyan"
               dark
               width="120px"
-            >確認</v-btn>
+            >OK</v-btn>
           </div>
           <div v-if="form_error">
             <h2>登録データが見つかりませんでした</h2>
-            <h2>新しく登録をしてください。</h2>
+            <h2>新しく登録をしてください</h2>
             <v-btn x-large flat to="/register" class="ma-2" app color="cyan" dark width="120px">OK</v-btn>
           </div>
         </v-overlay>
@@ -187,9 +188,9 @@ export default {
       console.log(response.data[0]);
       var birth_buf = response.data[0].birthday.split("-");
       this.data.form = response.data[0];
-      this.data.form.birth_year = birth_buf[0];
-      this.data.form.birth_month = birth_buf[1];
-      this.data.form.birth_day = birth_buf[2];
+      this.data.form.birth_year = Number(birth_buf[0]);
+      this.data.form.birth_month = Number(birth_buf[1]);
+      this.data.form.birth_day = Number(birth_buf[2]);
       console.log(this.data.picked);
       if (response.data[0].gender == false) {
         this.data.picked = "false"

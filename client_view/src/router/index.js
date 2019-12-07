@@ -5,14 +5,15 @@ import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
 import Admin from '../views/Admin.vue'
 import Base from '../views/Base.vue'
-import BaseForm from '../views/BaseForm.vue'
+import FormBase from '../views/FormBase.vue'
 
 import Register from '../components/Register.vue'
 import RegisterConfirmation from '../components/RegisterConfirmation.vue'
-import Reregister from '../components/Reregister.vue'
-import Reconfirmation from '../components/Reconfirmation.vue'
-import Participant_register from '../components/Participant_register.vue'
-import Participant_confirmation from '../components/Participant_confirmation.vue'
+import Entry from '../components/Entry.vue'
+import EntryConfirmation from '../components/EntryConfirmation.vue'
+import ParticipantRegister from '../components/ParticipantRegister.vue'
+import ParticipantConfirmation from '../components/ParticipantConfirmation.vue'
+import ChangingConfirmation from '../components/ChangingConfirmation.vue'
 import AllParticipant from '../components/AllParticipant.vue'
 
 Vue.use(VueRouter)
@@ -30,7 +31,7 @@ const routes = [{
     },
     {
         path: '/register',
-        component: BaseForm,
+        component: FormBase,
         children: [{
                 path: '/',
                 component: Register
@@ -40,21 +41,25 @@ const routes = [{
                 component: RegisterConfirmation
             },
             {
-                path: '/re_register',
-                component: Reregister
+                path: '/entry',
+                component: Entry
             },
             {
-                path: '/re_confirmation',
-                component: Reconfirmation
+                path: '/entry_confirmation',
+                component: EntryConfirmation
 
             },
             {
                 path: '/participant_confirmation',
-                component: Participant_confirmation
+                component: ParticipantConfirmation
             },
             {
                 path: '/participant_register',
-                component: Participant_register
+                component: ParticipantRegister
+            },
+            {
+                path: '/changing_confirmation',
+                component: ChangingConfirmation
             }
         ]
     },

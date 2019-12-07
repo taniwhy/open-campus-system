@@ -1,11 +1,11 @@
  <!--
- 初回登録情報確認コンポーネント
+ 登録済み参加者情報変更確認コンポーネント
 
- 初回参加者は入力・選択した登録情報の確認をこのコンポーネントで行い
- 登録情報をAPIで送信する
+ 登録済みデータの変更の確認をこのコンポーネントで提示し、
+ PUTメソッドで変更を行う
 
- 遷移元: Register
- 遷移先: Register, Home
+ 遷移元: ParticipantRegister
+ 遷移先:
   -->
 <template>
   <v-app>
@@ -22,7 +22,7 @@
 
           <!-- カード配置用コンテナ -->
           <v-container style="width: 95%;" fluid>
-            <v-row style="height: 30px;">
+            <v-row style="height: 20px;">
               <p style="text-align: left;">お名前</p>
             </v-row>
             <v-row style="height: 20px;" justify="center">
@@ -30,7 +30,7 @@
             </v-row>
             <br />
             <!-- フリガナフォーム -->
-            <v-row style="height: 30px;">
+            <v-row style="height: 20px;">
               <p style="text-align: left;">フリガナ</p>
             </v-row>
             <v-row style="height: 20px;" justify="center">
@@ -41,7 +41,7 @@
             <br />
 
             <!-- 生年月日フォーム -->
-            <v-row style="height: 30px;">
+            <v-row style="height: 20px;">
               <p style="text-align: left;">生年月日</p>
             </v-row>
 
@@ -53,7 +53,7 @@
             <br />
 
             <!-- 性別フォーム -->
-            <v-row style="height: 30px;">
+            <v-row style="height: 20px;">
               <p style="text-align: left;">性別</p>
             </v-row>
             <div v-if="data.form.gender">
@@ -70,7 +70,7 @@
             </div>
 
             <!-- 電話番号フォーム -->
-            <v-row style="height: 30px;">
+            <v-row style="height: 20px;">
               <p style="text-align: left;">電話番号</p>
             </v-row>
             <v-row style="height: 20px;" justify="center">
@@ -79,7 +79,7 @@
             <br />
 
             <!-- 郵便番号フォーム -->
-            <v-row style="height: 30px;">
+            <v-row style="height: 20px;">
               <p style="text-align: left;">郵便番号</p>
             </v-row>
             <v-row style="height: 20px;" justify="center">
@@ -88,7 +88,7 @@
             <br />
 
             <!-- 住所フォーム -->
-            <v-row style="height: 30px;">
+            <v-row style="height: 20px;">
               <p style="text-align: left;">住所</p>
             </v-row>
             <v-row style="height: 20px;" justify="center">
@@ -97,7 +97,7 @@
             <br />
 
             <!-- 番地/建物名フォーム -->
-            <v-row style="height: 30px;">
+            <v-row style="height: 20px;">
               <p style="text-align: left;">番地/建物名</p>
             </v-row>
             <v-row style="height: 20px;" justify="center">
@@ -106,7 +106,7 @@
             <br />
 
             <!-- 職業フォーム -->
-            <v-row style="height: 30px;">
+            <v-row style="height: 20px;">
               <p style="text-align: left;">職業</p>
             </v-row>
             <div v-if="data.student_check">
@@ -124,7 +124,7 @@
 
             <!-- 職業が学生なら表示 -->
             <div v-if="data.student_check">
-              <v-row style="height: 30px;">
+              <v-row style="height: 20px;">
                 <p style="text-align: left;">学校名</p>
               </v-row>
               <v-row style="height: 20px;" justify="center">
@@ -132,7 +132,7 @@
               </v-row>
               <br />
 
-              <v-row style="height: 30px;">
+              <v-row style="height: 20px;">
                 <p style="text-align: left;">学年</p>
               </v-row>
               <v-row style="height: 20px;" justify="center">
@@ -140,7 +140,7 @@
               </v-row>
               <br />
 
-              <v-row style="height: 30px;">
+              <v-row style="height: 20px;">
                 <p style="text-align: left;">卒業予定年</p>
               </v-row>
               <v-row style="height: 20px;" justify="center">
@@ -151,7 +151,7 @@
 
             <!-- 職業がその他なら表示 -->
             <div v-if="!data.student_check">
-              <v-row style="height: 30px;">
+              <v-row style="height: 20px;">
                 <p style="text-align: left;">高校卒業済み</p>
               </v-row>
               <div v-if="data.form.graduate_check">
@@ -166,7 +166,7 @@
                 </v-row>
                 <br />
               </div>
-              <v-row style="height: 30px;">
+              <v-row style="height: 20px;">
                 <p style="text-align: left;">高等学校卒業程度認定試験取得済み</p>
               </v-row>
               <div v-if="data.form.graduate_qualification">
@@ -184,7 +184,7 @@
             </div>
 
             <!-- 参加希望学科フォーム -->
-            <v-row style="height: 30px;">
+            <v-row style="height: 25px;">
               <p style="text-align: left;">参加希望学科</p>
             </v-row>
             <v-row style="height: 20px;" justify="center">
@@ -196,7 +196,7 @@
 
             <v-row align="center" justify="center">
               <div max-width="95%">
-                <p style="font-size: 20px;color: #42A5F5; font-weight: 600;">※上記の入力内容でよろしいですか？</p>
+                <p style="font-size: 20px;color: #42A5F5; font-weight: 600;">※変更点はございませんか？</p>
               </div>
               <v-card-actions>
                 <v-col>
@@ -207,9 +207,8 @@
                     color="cyan"
                     dark
                     width="120px"
-                    v-on:click="form_post"
-                    @click="overlay = true"
-                  >登録する</v-btn>
+                    @click="entry"
+                  >OK</v-btn>
                 </v-col>
                 <v-col>
                   <v-btn
@@ -219,8 +218,8 @@
                     color="cyan"
                     dark
                     width="120px"
-                    v-on:click="$router.back()"
-                  >編集する</v-btn>
+                    to="/participant_register"
+                  >変更する</v-btn>
                 </v-col>
               </v-card-actions>
             </v-row>
@@ -235,7 +234,7 @@
           </div>
           <div v-if="succeeded_register">
             <h2>登録完了しました!</h2>
-            <v-btn x-large flat to="/" class="ma-2" app color="cyan" dark width="120px">OK</v-btn>
+            <v-btn x-large flat to="/" class="ma-2" app color="cyan" dark width="120px">戻る</v-btn>
           </div>
           <div v-if="failed_register">
             <h2>登録が成功しませんでした。</h2>
@@ -254,33 +253,16 @@ import axios from "axios";
 import settings from "..//local_settings.json";
 
 export default {
-  props: {
-    /**
-     * バインディングデータ
-     */
-    data: Object
-  },
   data() {
     return {
-      /**
-       * ヘッダーに付与する認証情報
-       * @type {json}
-       */
       settings: settings,
-      /**
-       * POST送信時に付与するパラメタ
-       * @type {json}
-       */
+      //送信用フォームのバインディングデータ
       form: {},
-      /**
-       * POST送信時のフォームに付与する生年月日フィールド
-       * @type {String}
-       */
+      //フォーム用生年月日変数
       birthday: null,
-      /**
-       * POST送信時のローディング用オーバーレイ表示判定
-       * @type {Boolean}
-       */
+      form_check: true,
+      form_create: false,
+      form_error: false,
       overlay: false,
       /**
        * ローディングアニメーション表示判定
@@ -299,48 +281,24 @@ export default {
       failed_register: false
     };
   },
+  //バインディングデータ
+  props: {
+    data: Object
+  },
   methods: {
-    /**
-     * POST送信時に付与するパラメタのフォーマット
-     */
-    form_format() {
-      this.birthday =
-        this.data.form.birth_year +
-        "-" +
-        this.data.form.birth_month +
-        "-" +
-        this.data.form.birth_day;
-      this.form = {
-        family_name: this.data.form.family_name,
-        first_name: this.data.form.first_name,
-        family_name_reading: this.data.form.family_name_reading,
-        first_name_reading: this.data.form.first_name_reading,
-        birthday: this.birthday,
-        gender: this.data.form.gender,
-        phone_number: this.data.form.phone_number,
-        postal_code: this.data.form.postal_code,
-        street_address: this.data.form.street_address,
-        address: this.data.form.address,
-        job: this.data.form.job,
-        school_name: this.data.form.school_name,
-        school_year: this.data.form.school_year,
-        graduate_year: this.data.form.graduate_year,
-        graduated_check: this.data.form.graduate_check,
-        graduate_qualification: this.data.form.graduate_qualification
-      };
-    },
-    /**
-     * 参加者情報の登録処理
-     */
-    form_post() {
-      this.form_format();
-      console.log(this.form);
+    entry: function() {
+      this.overlay = true;
+      console.log(this.data);
       axios
-        .post("http://127.0.0.1:8000/api/participant/", this.form, {
-          auth: { username: settings["name"], password: settings["pass"] }
-        })
-        .then(response => this.form_created(response))
-        .catch(response => this.create_error(response));
+        .put(
+          "http://127.0.0.1:8000/api/participant/" + this.data.form.id + "/",
+          this.data.form,
+          {
+            auth: { username: settings["name"], password: settings["pass"] }
+          }
+        )
+        .then(response => this.succeeded_registerd(response))
+        .catch(error => this.failed_registered(error));
     },
     succeeded_registerd(response) {
       console.log(response);

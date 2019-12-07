@@ -1,3 +1,12 @@
+ <!--
+ 登録済み参加者情報確認コンポーネント
+
+ 登録済みデータをこのコンポーネントで提示し、
+ 変更点の有無を確認する
+
+ 遷移元: EntryCOnfirmation
+ 遷移先: ParticipantRegister
+  -->
 <template>
   <v-app>
     <v-content>
@@ -187,7 +196,7 @@
 
             <v-row align="center" justify="center">
               <div max-width="95%">
-                <p style="font-size: 20px;color: #FF5252; font-weight: 600;">※こちらでよろしいですか？</p>
+                <p style="font-size: 20px;color: #42A5F5; font-weight: 600;">※変更点はございませんか？</p>
               </div>
               <v-card-actions>
                 <v-col>
@@ -210,7 +219,7 @@
                     dark
                     width="120px"
                     to="/participant_register"
-                  >編集する</v-btn>
+                  >変更する</v-btn>
                 </v-col>
               </v-card-actions>
             </v-row>

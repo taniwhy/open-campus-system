@@ -1,3 +1,10 @@
+ <!--
+ 登録済み参加者向けコンポーネント
+ 登録済み参加者は登録情報の
+
+ 遷移元: Register
+ 遷移先: Register, Home
+  -->
 <template>
   <v-app>
     <v-content>
@@ -7,27 +14,27 @@
         <v-card-text>
           <v-col align="center" justify="center">
             <v-list-item-content>
-              <v-list-item-title class="headline mb-1">参加表入力(2回目以降)</v-list-item-title>
+              <v-list-item-title class="headline mb-1">参加票フォーム</v-list-item-title>
+              <v-list-item-subtitle>※項目は全て入力・選択してください</v-list-item-subtitle>
             </v-list-item-content>
           </v-col>
 
           <!-- カード配置用コンテナ -->
           <div v-if="!success && initial">
-            <p style="text-align: center; color: #FF3366	">※入力されていない項目があります</p>
+            <p style="text-align: center; color: #FF3366	">※入力・選択に誤りがあります</p>
           </div>
           <v-container style="width: 90%;" fluid>
-            <!-- 名前用コンテナ -->
             <v-form ref="test_form">
+              <!-- 氏名フォーム -->
               <v-row style="height: 5px;">
-                <p style="text-align: left;color: #222222">お名前</p>
+                <p style="text-align: left;color: #222222">氏名</p>
               </v-row>
 
               <v-row style="height: 45px;">
                 <v-col>
                   <v-text-field
                     v-model="data.form.family_name"
-                    :rules="[required, limit_length_15
-              ]"
+                    :rules="nameRules"
                     placeholder="姓"
                     height="15px"
                   ></v-text-field>
@@ -38,8 +45,7 @@
                 <v-col>
                   <v-text-field
                     v-model="data.form.first_name"
-                    :rules="[required,limit_length_15
-              ]"
+                    :rules="nameRules"
                     placeholder="名"
                     height="15px"
                   ></v-text-field>
@@ -51,24 +57,26 @@
                 <p style="text-align: left;color: #222222">生年月日</p>
               </v-row>
 
-              <v-row style="height: 50px;">
+              <v-row style="height: 60px;">
                 <v-col>
                   <v-select
                     style="min-width: 150px"
                     v-model="data.form.birth_year"
                     :items="data.years_list"
+                    :rules="birthdayRules"
                     label="年"
                     dense
                     solo
                   ></v-select>
                 </v-col>
               </v-row>
-              <v-row style="height: 50px;">
+              <v-row style="height: 60px;">
                 <v-col>
                   <v-select
-                    style="min-width: 150px"
                     v-model="data.form.birth_month"
                     :items="data.months_list"
+                    :rules="birthdayRules"
+                    style="min-width: 150px"
                     label="月"
                     dense
                     solo
@@ -78,9 +86,10 @@
               <v-row style="height: 70px;">
                 <v-col>
                   <v-select
-                    style="min-width: 150px"
                     v-model="data.form.birth_day"
                     :items="data.days_list"
+                    :rules="birthdayRules"
+                    style="min-width: 150px"
                     label="日"
                     dense
                     solo
@@ -88,21 +97,21 @@
                 </v-col>
               </v-row>
 
-              <!-- 電話番号フォーム -->
+              <!-- 携帯電話番号フォーム -->
               <v-row style="height: 0px;">
-                <p style="text-align: left;color: #222222">電話番号</p>
+                <p style="text-align: left;color: #222222">携帯電話番号</p>
               </v-row>
               <v-row style="height: 70px;">
                 <v-col style="height: 70px;">
                   <v-text-field
                     v-model="data.form.phone_number"
-                    :rules="[required,digit_check,limit_length_10
-              ]"
-                    height="15px"
+                    :rules="phoneNumberRules"
                     placeholder="入力してください"
+                    height="15px"
                   ></v-text-field>
                 </v-col>
               </v-row>
+
               <!-- 郵便番号フォーム -->
               <v-row style="height: 0px;">
                 <p style="text-align: left;color: #222222">郵便番号</p>
@@ -111,11 +120,9 @@
                 <v-col style="height: 70px;">
                   <v-text-field
                     v-model="data.form.postal_code"
-                    :rules="[required,digit_check,limit_length_7
-              ]"
-                    height="15px"
+                    :rules="postalCodeRules"
                     placeholder="入力してください"
-                    required
+                    height="15px"
                   ></v-text-field>
                 </v-col>
               </v-row>
@@ -127,8 +134,9 @@
               <v-row>
                 <v-col>
                   <v-select
-                    :items="data.subject_list"
                     v-model="data.join_subject"
+                    :items="data.subject_list"
+                    :rules="selectRules"
                     label="選択してください"
                     dense
                     solo
@@ -164,18 +172,38 @@ import axios from "axios";
 export default {
   data() {
     return {
-      is_null: value => value == null || "必ず選択してください",
-      required: value => !!value || "必ず入力してください",
-      digit_check: value =>
-        value.match(/^\d+$/) || "半角数字のみを入力してください",
-      limit_length_7: value => value.length == 7 || "7桁で入力してください",
-      limit_length_10: value => value.length == 10 || "10桁で入力してください",
-      limit_length_11: value =>
-        value.length <= 11 || "11文字以内で入力してください",
-      limit_length_15: value =>
-        value.length <= 15 || "15文字以内で入力してください",
-      limit_length_30: value =>
-        value.length <= 30 || "30文字以内で入力してください",
+      nameRules: [
+        v => !!v || "必ず入力してください",
+        v => (v && v.length <= 15) || "15文字以内で入力してください"
+      ],
+      nameReadingRules: [
+        v => !!v || "必ず入力してください",
+        v =>
+          (v && v.match(/^[ア-ン゛゜ァ-ォャ-ョー「」、]+$/)) ||
+          "カタカナのみを入力してください",
+        v => (v && v.length <= 15) || "15文字以内で入力してください"
+      ],
+      birthdayRules: [v => !!v || "必ず選択してください"],
+      genderRules: [v => !!v || "必ず選択してください"],
+      phoneNumberRules: [
+        v => !!v || "必ず入力してください",
+        v => (v && v.match(/^\d+$/)) || "半角数字のみを入力してください",
+        v => (v && v.length == 11) || "11桁で入力してください"
+      ],
+      postalCodeRules: [
+        v => !!v || "必ず入力してください",
+        v => (v && v.match(/^\d+$/)) || "半角数字のみを入力してください",
+        v => (v && v.length == 7) || "７桁で入力してください"
+      ],
+      addressRules: [
+        v => !!v || "必ず入力してください",
+        v => (v && v.length <= 30) || "30文字以内で入力してください"
+      ],
+      radioRules: [v => v != null || "必ず選択してください"],
+      selectRules: [v => !!v || "必ず選択してください"],
+      inputRules: [
+        v => (v && v.length <= 30) || "30文字以内で入力してください"
+      ],
       initial: false,
       success: false
     };
@@ -222,7 +250,7 @@ export default {
         window.scrollTo(0, 0);
       }
       if (this.success) {
-        this.$router.push({ path: "re_confirmation" });
+        this.$router.push({ path: "entry_confirmation" });
       }
     },
     scrollBehavior(to, from, savedPosition) {
