@@ -1,5 +1,0 @@
-DATABASE_HOST = '126.130.31.40'
-DATABASE_PORT = '5432'
-DATABASE_USER = 'taniwhy'
-DATABASE_PASS = 'hunter628'
-DATABASE_NAME = 'open_campus_system'

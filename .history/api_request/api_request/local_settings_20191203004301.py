@@ -1,5 +1,0 @@
-DATABASE_NAME = "open_campus_system"
-DATABASE_USER = "postgres"
-DATABASE_PASS = "hunter628"
-DATABASE_HOST = "126.130.31.40"
-DATABASE_PORT = "5432"
