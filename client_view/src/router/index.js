@@ -6,6 +6,7 @@ import Login from '../views/Login.vue'
 import Admin from '../views/Admin.vue'
 import Base from '../views/Base.vue'
 import FormBase from '../views/FormBase.vue'
+import ReceptionComplete from '../views/ReceptionComplete.vue'
 
 import Register from '../components/Register.vue'
 import RegisterConfirmation from '../components/RegisterConfirmation.vue'
@@ -60,8 +61,12 @@ const routes = [{
             {
                 path: '/changing_confirmation',
                 component: ChangingConfirmation
-            }
+            },
         ]
+    },
+    {
+        path: '/complete',
+        component: ReceptionComplete
     },
     {
         path: '/login',

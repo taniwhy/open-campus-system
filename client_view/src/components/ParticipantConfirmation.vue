@@ -207,7 +207,8 @@
                     color="cyan"
                     dark
                     width="120px"
-                    @click="entry"
+                    v-on:click="form_post"
+                    @click="overlay = true"
                   >OK</v-btn>
                 </v-col>
                 <v-col>
@@ -229,17 +230,17 @@
       </v-card>
       <div class="text-center">
         <v-overlay :value="overlay" color="grey darken-4">
-          <div v-if="form_check">
+          <div v-if="loading">
             <v-progress-circular :size="50" color="light-blue lighten-3" indeterminate></v-progress-circular>
           </div>
-          <div v-if="form_create">
+          <div v-if="succeeded_register">
             <h2>登録完了しました!</h2>
-            <v-btn x-large flat to="/" class="ma-2" app color="cyan" dark width="120px">戻る</v-btn>
+            <v-btn x-large to="/" class="ma-2" app color="cyan" dark width="120px">戻る</v-btn>
           </div>
-          <div v-if="form_error">
+          <div v-if="failed_register">
             <h2>登録が成功しませんでした。</h2>
             <h2>もう一度最初からお願いします。</h2>
-            <v-btn x-large flat to="/" class="ma-2" app color="cyan" dark width="120px">戻る</v-btn>
+            <v-btn x-large to="/" class="ma-2" app color="cyan" dark width="120px">戻る</v-btn>
           </div>
         </v-overlay>
       </div>
@@ -249,6 +250,7 @@
 </template>
 
 <script>
+import moment from "moment";
 import axios from "axios";
 import settings from "..//local_settings.json";
 
@@ -260,19 +262,41 @@ export default {
       form: {},
       //フォーム用生年月日変数
       birthday: null,
+      /**
+       * POST送信時のローディング用オーバーレイ表示判定
+       * @type {Boolean}
+       */
       overlay: false,
-      overlay2: false,
-      form_check: true,
-      form_create: false,
-      form_error: false
+      /**
+       * ローディングアニメーション表示判定
+       * @type {Boolean}
+       */
+      loading: true,
+      /**
+       * すでに登録済み表示判定
+       * @type {Boolean}
+       */
+      foundDataCheck: false,
+      /**
+       * 登録成功表示判定
+       * @type {Boolean}
+       */
+      succeeded_register: false,
+      /**
+       * 登録失敗表示判定
+       * @type {Boolean}
+       */
+      failed_register: false
     };
   },
   //バインディングデータ
   props: {
     data: Object
   },
+  mounted() {
+    window.scrollTo(0, 0);
+  },
   methods: {
-    entry: function() {},
     //送信用フォームのフォーマット
     form_format: function() {
       this.birthday =
@@ -303,23 +327,29 @@ export default {
     //登録完了処理
     form_post: function() {
       this.form_format();
-      console.log(this.form);
+      this.data.participantHistoryForm.participant = this.data.id;
+      this.data.participantHistoryForm.join_day = moment().format("l");
+      this.data.participantHistoryForm.join_subject = this.data.join_subject;
       axios
-        .post("http://127.0.0.1:8000/api/participant/", this.form, {
-          auth: { username: settings["name"], password: settings["pass"] }
-        })
-        .then(response => this.form_created(response))
-        .catch(response => this.create_error(response));
+        .post(
+          "http://127.0.0.1:8000/api/participant_history/",
+          this.data.participantHistoryForm,
+          {
+            auth: { username: settings["name"], password: settings["pass"] }
+          }
+        )
+        .then(response => this.succeeded_registerd(response))
+        .catch(error => this.failed_registered(error));
     },
-    form_created: function(response) {
-      console.log(response);
-      this.form_check = false;
-      this.form_create = true;
+    succeeded_registerd(response) {
+      console.log(response.data.id);
+      this.loading = false;
+      this.succeeded_register = true;
     },
-    create_error: function(response) {
-      console.log(response);
-      this.form_check = false;
-      this.form_error = true;
+    failed_registered(error) {
+      console.log(error);
+      this.loading = false;
+      this.failed_register = true;
     }
   }
 };

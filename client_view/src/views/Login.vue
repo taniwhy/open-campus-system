@@ -53,16 +53,7 @@
         <div v-if="this.$store.getters.login_error">
           <h2>ログインできませんでした。</h2>
           <h2>確認して下さい。</h2>
-          <v-btn
-            x-large
-            flat
-            class="ma-2"
-            app
-            color="cyan"
-            dark
-            width="120px"
-            @click="overlay=false"
-          >OK</v-btn>
+          <v-btn x-large class="ma-2" app color="cyan" dark width="120px" @click="overlay=false">OK</v-btn>
         </div>
       </v-overlay>
     </div>

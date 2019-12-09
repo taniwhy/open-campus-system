@@ -337,6 +337,9 @@ export default {
       success: false
     };
   },
+  mounted() {
+    window.scrollTo(0, 0);
+  },
   methods: {
     submit() {
       try {

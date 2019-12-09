@@ -233,13 +233,13 @@
             <v-progress-circular :size="50" color="light-blue lighten-3" indeterminate></v-progress-circular>
           </div>
           <div v-if="succeeded_register">
-            <h2>登録完了しました!</h2>
-            <v-btn x-large flat to="/" class="ma-2" app color="cyan" dark width="120px">戻る</v-btn>
+            <h2>変更完了しました!</h2>
+            <v-btn x-large to="/" class="ma-2" app color="cyan" dark width="120px">OK</v-btn>
           </div>
           <div v-if="failed_register">
             <h2>登録が成功しませんでした。</h2>
             <h2>もう一度最初からお願いします。</h2>
-            <v-btn x-large flat to="/" class="ma-2" app color="cyan" dark width="120px">戻る</v-btn>
+            <v-btn x-large to="/" class="ma-2" app color="cyan" dark width="120px">戻る</v-btn>
           </div>
         </v-overlay>
       </div>
@@ -284,6 +284,9 @@ export default {
   //バインディングデータ
   props: {
     data: Object
+  },
+  mounted() {
+    window.scrollTo(0, 0);
   },
   methods: {
     entry: function() {

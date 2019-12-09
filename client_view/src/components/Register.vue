@@ -316,6 +316,9 @@ export default {
   },
   data() {
     return {
+      /**
+       * バリデーションチェック用ルール
+       */
       nameRules: [
         v => !!v || "必ず入力してください",
         v => (v && v.length <= 15) || "15文字以内で入力してください"
@@ -348,12 +351,22 @@ export default {
       inputRules: [
         v => (v && v.length <= 30) || "30文字以内で入力してください"
       ],
-
+      /**
+       * バリデーション判定
+       * @type {boolean}
+       */
       initial: false,
       success: false
     };
   },
+  //画面遷移時にページ上部に移動
+  mounted() {
+    window.scrollTo(0, 0);
+  },
   methods: {
+    /**
+     * 参加者情報登録処理
+     */
     submit() {
       try {
         if (this.$refs.test_form.validate() && this.form_check()) {
@@ -370,13 +383,6 @@ export default {
       }
       if (this.success) {
         this.$router.push({ path: "register_confirmation" });
-      }
-    },
-    scrollBehavior(to, from, savedPosition) {
-      if (savedPosition) {
-        return savedPosition;
-      } else {
-        return { x: 0, y: 0 };
       }
     },
     form_check() {

@@ -40,6 +40,13 @@ export default {
           graduate_check: false,
           graduate_qualification: false
         },
+        participantHistoryForm: {
+          participant: null,
+          join_day: null,
+          join_subject: null,
+          school_year: null,
+        },
+        id: null,
         /**
          * 性別の初期値
          * @type {Boolean}

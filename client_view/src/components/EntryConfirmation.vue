@@ -107,7 +107,6 @@
             <h2>確認してください</h2>
             <v-btn
               x-large
-              flat
               to="/participant_confirmation"
               class="ma-2"
               app
@@ -119,7 +118,7 @@
           <div v-if="form_error">
             <h2>登録データが見つかりませんでした</h2>
             <h2>新しく登録をしてください</h2>
-            <v-btn x-large flat to="/register" class="ma-2" app color="cyan" dark width="120px">OK</v-btn>
+            <v-btn x-large to="/register" class="ma-2" app color="cyan" dark width="120px">OK</v-btn>
           </div>
         </v-overlay>
       </div>
@@ -149,6 +148,9 @@ export default {
   //バインディングデータ
   props: {
     data: Object
+  },
+  mounted() {
+    window.scrollTo(0, 0);
   },
   methods: {
     //送信用フォームのフォーマット
@@ -185,22 +187,21 @@ export default {
     },
     //データが見つかる
     found_data: function(response) {
-      console.log(response.data[0]);
       var birth_buf = response.data[0].birthday.split("-");
       this.data.form = response.data[0];
       this.data.form.birth_year = Number(birth_buf[0]);
       this.data.form.birth_month = Number(birth_buf[1]);
       this.data.form.birth_day = Number(birth_buf[2]);
-      console.log(this.data.picked);
+      this.data.id = response.data[0].id;
       if (response.data[0].gender == false) {
-        this.data.picked = "false"
+        this.data.picked = "false";
       } else {
-        this.data.picked = "true"
+        this.data.picked = "true";
       }
       if (response.data[0].job == false) {
-        this.data.picked_job = "false"
+        this.data.picked_job = "false";
       } else {
-        this.data.picked_job = "true"
+        this.data.picked_job = "true";
       }
       this.form_check = false;
       this.form_create = true;

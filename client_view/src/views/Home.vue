@@ -30,13 +30,10 @@
 export default {
   data: () => ({}),
   mounted: function() {
-  /**
-   * ブラウザバックの無効化
-   */
+    /**
+     * ブラウザバックの無効化
+     */
     history.pushState(null, null, null);
-    window.addEventListener("popstate", function() {
-      history.pushState(null, null, null);
-    });
   }
 };
 </script>

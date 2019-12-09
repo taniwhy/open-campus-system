@@ -3,6 +3,7 @@
 
  初回参加者は入力・選択した登録情報の確認をこのコンポーネントで行い
  登録情報をAPIで送信する
+ 同時に参加履歴に登録する
 
  遷移元: Register
  遷移先: Register, Home
@@ -228,19 +229,33 @@
           </v-container>
         </v-card-text>
       </v-card>
+      <!-- オーバーレイ -->
       <div class="text-center">
         <v-overlay :value="overlay" color="grey darken-4">
           <div v-if="loading">
             <v-progress-circular :size="50" color="light-blue lighten-3" indeterminate></v-progress-circular>
           </div>
+          <div v-if="foundDataCheck">
+            <h2>既に登録済みです。</h2>
+            <h2>ご確認ください。</h2>
+            <v-btn
+              x-large
+              to="/participant_confirmation"
+              class="ma-2"
+              app
+              color="cyan"
+              dark
+              width="120px"
+            >OK</v-btn>
+          </div>
           <div v-if="succeeded_register">
             <h2>登録完了しました!</h2>
-            <v-btn x-large flat to="/" class="ma-2" app color="cyan" dark width="120px">OK</v-btn>
+            <v-btn x-large to="/complete" class="ma-2" app color="cyan" dark width="120px">OK</v-btn>
           </div>
           <div v-if="failed_register">
             <h2>登録が成功しませんでした。</h2>
             <h2>もう一度最初からお願いします。</h2>
-            <v-btn x-large flat to="/" class="ma-2" app color="cyan" dark width="120px">戻る</v-btn>
+            <v-btn x-large to="/" class="ma-2" app color="cyan" dark width="120px">戻る</v-btn>
           </div>
         </v-overlay>
       </div>
@@ -250,6 +265,7 @@
 </template>
 
 <script>
+import moment from "moment";
 import axios from "axios";
 import settings from "..//local_settings.json";
 
@@ -288,6 +304,11 @@ export default {
        */
       loading: true,
       /**
+       * すでに登録済み表示判定
+       * @type {Boolean}
+       */
+      foundDataCheck: false,
+      /**
        * 登録成功表示判定
        * @type {Boolean}
        */
@@ -299,9 +320,12 @@ export default {
       failed_register: false
     };
   },
+  mounted() {
+    window.scrollTo(0, 0);
+  },
   methods: {
     /**
-     * POST送信時に付与するパラメタのフォーマット
+     * POST送信時に付与するボディのフォーマット
      */
     form_format() {
       this.birthday =
@@ -330,20 +354,96 @@ export default {
       };
     },
     /**
+     * フォーム内容をAPIに問い合わせる
+     */
+    form_post: function() {
+      this.form_format();
+      axios
+        .get(
+          "http://127.0.0.1:8000/api/participant/",
+          {
+            params: this.form
+          },
+          {
+            auth: { username: settings["name"], password: settings["pass"] }
+          }
+        )
+        .then(response => this.get_data(response))
+        .catch(error => this.failed_registered(error));
+    },
+    /**
+     * 問い合わせのレスポンスチェック
+     */
+    get_data: function(response) {
+      /**
+       * ステータスコードが
+       */
+      console.log(response.data);
+      if (response.data.length != 0) {
+        console.log("aruyo");
+        this.foundDataCheck = true;
+        this.loading = false;
+        var birth_buf = response.data[0].birthday.split("-");
+        this.data.form = response.data[0];
+        this.data.form.birth_year = Number(birth_buf[0]);
+        this.data.form.birth_month = Number(birth_buf[1]);
+        this.data.form.birth_day = Number(birth_buf[2]);
+        if (response.data[0].gender == false) {
+          this.data.picked = "false";
+        } else {
+          this.data.picked = "true";
+        }
+        if (response.data[0].job == false) {
+          this.data.picked_job = "false";
+        } else {
+          this.data.picked_job = "true";
+        }
+        this.form_check = false;
+        this.form_create = true;
+      } else {
+        console.log("naiyo");
+        this.register(response);
+      }
+    },
+    /**
      * 参加者情報の登録処理
      */
-    form_post() {
+    register() {
+      console.log(moment().format("l"));
       this.form_format();
       console.log(this.form);
       axios
         .post("http://127.0.0.1:8000/api/participant/", this.form, {
           auth: { username: settings["name"], password: settings["pass"] }
         })
-        .then(response => this.form_created(response))
-        .catch(response => this.create_error(response));
+        .then(response => this.entryRegister(response))
+        .catch(error => this.failed_registered(error));
+    },
+    /**
+     * オープンキャンパスへの参加履歴追加処理
+     */
+    entryRegister(response) {
+      this.data.participantHistoryForm.participant = response.data.id;
+      this.data.participantHistoryForm.join_day = moment().format("l");
+      this.data.participantHistoryForm.join_subject = this.data.join_subject;
+      if(response.data.job == true) {
+        this.data.participantHistoryForm.school_year = "その他"
+      } else {
+        this.data.participantHistoryForm.school_year = response.data.school_year
+      }
+      axios
+        .post(
+          "http://127.0.0.1:8000/api/participant_history/",
+          this.data.participantHistoryForm,
+          {
+            auth: { username: settings["name"], password: settings["pass"] }
+          }
+        )
+        .then(response => this.succeeded_registerd(response))
+        .catch(error => this.failed_registered(error));
     },
     succeeded_registerd(response) {
-      console.log(response);
+      console.log(response.data.id);
       this.loading = false;
       this.succeeded_register = true;
     },
