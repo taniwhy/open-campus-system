@@ -1,6 +1,8 @@
 import django_filters
 from rest_framework import viewsets, filters
 from rest_framework.permissions import IsAuthenticated
+from rest_framework import permissions
+from rest_framework.permissions import AllowAny, IsAdminUser, IsAuthenticatedOrReadOnly
 
 from .models import Participant, ParticipantHistory, Subject
 from .serializer import ParticipantSerializer, ParticipantHistorySerializer, SubjectSerializer
@@ -11,6 +13,7 @@ class SubjectViewSet(viewsets.ModelViewSet):
     Returns:
         Object: 学科一覧データ
     """
+    permission_classes = [AllowAny]
     queryset = Subject.objects.all()
     serializer_class = SubjectSerializer
 
@@ -44,6 +47,13 @@ class ParticipantViewSet(viewsets.ModelViewSet):
                 postal_code=postal_code)
             return queryset
 
+    def get_permissions(self):
+        if 'phone_number' in self.request.query_params:
+            permission_classes = [AllowAny]
+        else:
+            permission_classes = [IsAuthenticated]
+        return [permission() for permission in permission_classes]
+
 
 class ParticipantHistoryViewSet(viewsets.ModelViewSet):
     queryset = ParticipantHistory.objects.all()
@@ -62,3 +72,10 @@ class ParticipantHistoryViewSet(viewsets.ModelViewSet):
             queryset = ParticipantHistory.objects.filter(
                 join_day=join_day)
             return queryset
+
+    def get_permissions(self):
+        if self.request.method == 'POST':
+            permission_classes = [AllowAny]
+        else:
+            permission_classes = [IsAuthenticated]
+        return [permission() for permission in permission_classes]
