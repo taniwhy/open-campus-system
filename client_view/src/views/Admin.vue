@@ -1,6 +1,13 @@
-<!-- Adminのベース -->
+ <!--
+ Adminのベース
+
+ ログイン完了した管理者は自動的にここに遷移される
+
+ 遷移元: Home
+ 遷移先:
+  -->
 <template>
-  <v-app id="inspire">
+  <v-app>
     <v-navigation-drawer v-model="drawer" app clipped>
       <v-list dense>
         <v-list-item link>
@@ -35,7 +42,7 @@
             <v-list-item-title>データ出力</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-        <v-list-item link @click="logout">
+        <v-list-item link @click.stop="dialog = true">
           <v-list-item-action>
             <v-icon>mdi-settings</v-icon>
           </v-list-item-action>
@@ -56,13 +63,56 @@
     <v-footer app>
       <span>&copy; 2019</span>
     </v-footer>
+    <v-col>
+      <v-row align="center" justify="center">
+        <v-dialog v-model="dialog" max-width="290">
+          <v-card>
+            <v-col>
+              <v-row align="center" justify="center">
+                <v-card-title class="headline">ログアウトしますか？</v-card-title>
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn
+                    text
+                    class="white--text"
+                    style="font-weight: 700;"
+                    large
+                    color="cyan"
+                    width="120px"
+                    @click="logout"
+                  >ログアウト</v-btn>
+                  <v-btn
+                    text
+                    class="white--text"
+                    style="font-weight: 700;"
+                    large
+                    color="cyan"
+                    width="120px"
+                    @click="dialog = false"
+                  >キャンセル</v-btn>
+                </v-card-actions>
+              </v-row>
+            </v-col>
+          </v-card>
+        </v-dialog>
+      </v-row>
+    </v-col>
   </v-app>
 </template>
 
 <script>
 export default {
   data: () => ({
-    drawer: null
+    /**
+     * ドロワーの表示判定
+     * @type {boolean}
+     */
+    drawer: null,
+    /**
+     * ダイアログの表示判定
+     * @type {boolean}
+     */
+    dialog: false
   }),
   /**
    * 遷移時にログイン状態をチェックし
@@ -73,9 +123,7 @@ export default {
       this.$router.push({ path: "login" });
     }
   },
-  /**
-   * ログアウト処理
-   */
+  //ログアウト処理
   methods: {
     logout() {
       this.$store.dispatch("logout");

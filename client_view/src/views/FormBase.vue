@@ -111,12 +111,15 @@ export default {
     };
   },
   created() {
+    //生年月日の選択肢作成処理を発火
     this.create_birth();
+    //学科一覧をAPIから取得
     axios
       .get("http://127.0.0.1:8000/api/subject/")
       .then(response => this.subject_push(response.data));
   },
   methods: {
+    //生年月日の選択肢の作成処理
     create_birth: function() {
       for (var y = 2019; y >= 1900; y--) {
         this.data.years_list.push(y);
@@ -128,6 +131,7 @@ export default {
         this.data.days_list.push(d);
       }
     },
+    //学科一覧を学科選択肢の配列に追加
     subject_push: function(response) {
       for (var key in response) {
         this.data.subject_list.push(response[key].subject_name);

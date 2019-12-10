@@ -233,11 +233,11 @@
             <v-progress-circular :size="50" color="light-blue lighten-3" indeterminate></v-progress-circular>
           </div>
           <div v-if="succeeded_register">
-            <h2>変更完了しました!</h2>
-            <v-btn x-large to="/" class="ma-2" app color="cyan" dark width="120px">OK</v-btn>
+            <h2>変更と参加登録が完了しました！</h2>
+            <v-btn x-large to="/complete" class="ma-2" app color="cyan" dark width="120px">OK</v-btn>
           </div>
           <div v-if="failed_register">
-            <h2>登録が成功しませんでした。</h2>
+            <h2>変更が成功しませんでした。</h2>
             <h2>もう一度最初からお願いします。</h2>
             <v-btn x-large to="/" class="ma-2" app color="cyan" dark width="120px">戻る</v-btn>
           </div>
@@ -249,6 +249,7 @@
 </template>
 
 <script>
+import moment from "moment";
 import axios from "axios";
 import settings from "..//local_settings.json";
 
@@ -296,6 +297,26 @@ export default {
         .put(
           "http://127.0.0.1:8000/api/participant/" + this.data.form.id + "/",
           this.data.form,
+          {
+            auth: { username: settings["name"], password: settings["pass"] }
+          }
+        )
+        .then(response => this.entryRegisterd(response))
+        .catch(error => this.failed_registered(error));
+    },
+    entryRegisterd(response) {
+      this.data.participantHistoryForm.participant = response.data.id;
+      this.data.participantHistoryForm.join_day = moment().format("l");
+      this.data.participantHistoryForm.join_subject = this.data.join_subject;
+      if(response.data.job == true) {
+        this.data.participantHistoryForm.school_year = "その他"
+      } else {
+        this.data.participantHistoryForm.school_year = response.data.school_year
+      }
+      axios
+        .post(
+          "http://127.0.0.1:8000/api/participant_history/",
+          this.data.participantHistoryForm,
           {
             auth: { username: settings["name"], password: settings["pass"] }
           }

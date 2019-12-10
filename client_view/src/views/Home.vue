@@ -1,3 +1,11 @@
+ <!--
+ 初期表示画面コンポーネント
+
+ アンケートの開始と管理者ログイン画面に移行できる
+
+ 遷移元:
+ 遷移先: Entry, Register
+  -->
 <template>
   <v-app>
     <v-content>
@@ -23,12 +31,8 @@
   </v-app>
 </template>
 
-
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-
 <script>
 export default {
-  data: () => ({}),
   mounted: function() {
     /**
      * ブラウザバックの無効化

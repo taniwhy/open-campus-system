@@ -1,3 +1,12 @@
+ <!--
+ 管理者ログイン処理コンポーネント
+
+ IDとパスワードをここに入力しログインを行う
+ ログイン完了後はアドミン画面に遷移する
+
+ 遷移元: Home, Admin
+ 遷移先: Admin
+  -->
 <template>
   <v-app>
     <v-app-bar app color="cyan" dark>
@@ -7,7 +16,7 @@
     </v-app-bar>
     <v-content>
       <v-container class="fill-height" fluid>
-        <v-card ref="form" class="mx-auto" width="500px" max-width="100%" outlined>
+        <v-card ref="form" class="mx-auto" width="400px" max-width="100%" outlined>
           <v-card-text>
             <v-form>
               <v-text-field
@@ -63,12 +72,35 @@
 <script>
 export default {
   data: () => ({
+    /**
+     * ログインID
+     * @type {string}
+     */
     username: "",
+    /**
+     * ログインパスワード
+     * @type {string}
+     */
     password: "",
+    /**
+     * バリデーションチェック
+     * @type {boolean}
+     */
     valid: true,
+    /**
+     * パスワードの可視化判定
+     * @type {boolean}
+     */
     showPassword: false,
+    /**
+     * オーバーレイの可視化判定
+     * @type {boolean}
+     */
     overlay: false,
-    form: {},
+    /**
+     * バリデーションルール
+     * @type {object}
+     */
     rules: {
       username: [
         v => !!v || "ユーザー名は必須です",
@@ -82,6 +114,10 @@ export default {
     }
   }),
   methods: {
+    /**
+     * ログイン処理
+     * ストアのログイン処理を発火
+     */
     login() {
       this.overlay = true;
       this.$store.dispatch("login", {

@@ -127,7 +127,7 @@
               <v-row style="height: 20px;">
                 <p style="text-align: left;">学校名</p>
               </v-row>
-              <v-row style="height: 20px;" justify="center">
+              <v-row style="height: 25px;" justify="center">
                 <h3 style="text-align: left;">{{data.form.school_name}}</h3>
               </v-row>
               <br />
@@ -234,8 +234,8 @@
             <v-progress-circular :size="50" color="light-blue lighten-3" indeterminate></v-progress-circular>
           </div>
           <div v-if="succeeded_register">
-            <h2>登録完了しました!</h2>
-            <v-btn x-large to="/" class="ma-2" app color="cyan" dark width="120px">戻る</v-btn>
+            <h2>参加登録が完了しました!</h2>
+            <v-btn x-large to="/complete" class="ma-2" app color="cyan" dark width="120px">OK</v-btn>
           </div>
           <div v-if="failed_register">
             <h2>登録が成功しませんでした。</h2>
@@ -330,6 +330,11 @@ export default {
       this.data.participantHistoryForm.participant = this.data.id;
       this.data.participantHistoryForm.join_day = moment().format("l");
       this.data.participantHistoryForm.join_subject = this.data.join_subject;
+      if(this.data.job == true) {
+        this.data.participantHistoryForm.school_year = "その他"
+      } else {
+        this.data.participantHistoryForm.school_year = this.data.school_year
+      }
       axios
         .post(
           "http://127.0.0.1:8000/api/participant_history/",
