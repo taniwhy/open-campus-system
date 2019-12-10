@@ -1,3 +1,12 @@
+ <!--
+ 受付終了確認コンポーネント
+
+ 参加表入力が済んだ参加者に事前アンケートに答えてもらうか
+ このまま受付終了するか選択してもらう
+
+ 遷移元: ParticipantConfirmation, RegisterConfirmation, ChangingConfirmation
+ 遷移先: Home
+  -->
 <template>
   <v-app>
     <v-container class="fill-height" fluid>
