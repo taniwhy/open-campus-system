@@ -327,21 +327,18 @@ export default {
     //登録完了処理
     form_post: function() {
       this.form_format();
-      this.data.participantHistoryForm.participant = this.data.id;
+      this.data.participantHistoryForm.participant = this.data.form.id;
       this.data.participantHistoryForm.join_day = moment().format("l");
       this.data.participantHistoryForm.join_subject = this.data.join_subject;
-      if(this.data.job == true) {
-        this.data.participantHistoryForm.school_year = "その他"
+      if (this.data.job == true) {
+        this.data.participantHistoryForm.school_year = "その他";
       } else {
-        this.data.participantHistoryForm.school_year = this.data.school_year
+        this.data.participantHistoryForm.school_year = this.data.form.school_year;
       }
       axios
         .post(
           "http://127.0.0.1:8000/api/participant_history/",
-          this.data.participantHistoryForm,
-          {
-            auth: { username: settings["name"], password: settings["pass"] }
-          }
+          this.data.participantHistoryForm
         )
         .then(response => this.succeeded_registerd(response))
         .catch(error => this.failed_registered(error));
