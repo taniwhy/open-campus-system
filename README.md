@@ -1,33 +1,23 @@
 # client_view
 
-## Project setup
+## セットアップ
 ```
 yarn install
 ```
 
-### Compiles and hot-reloads for development
+### 開発用サーバ起動
 ```
 yarn serve
 ```
 
-### Compiles and minifies for production
-```
-yarn build
-```
-
-### Lints and fixes files
-```
-yarn lint
-```
-
 # api_request
 
-## Project setup
+## セットアップ
 ```
-package.json未作成です。すみません。
+未作成です。すみません。
 ```
 
-### Compiles and hot-reloads for development
-```
+### 開発用サーバ起動
+```python
 python manage.py runserver
 ```
